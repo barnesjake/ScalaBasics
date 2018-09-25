@@ -22,49 +22,48 @@ object Lecture11 extends App {
   counter.increment(5).print()
 
 
+  class Novel(name: String, val releaseDate: Int, author: Writer) {
 
-}
+    def authorAge(): Int = releaseDate - author.dob
 
-class Novel(name: String, val releaseDate: Int, author: Writer) {
+    def isWrittenBy(author: Writer): Boolean = author == this.author
 
-  def authorAge(): Int = releaseDate - author.dob
+    def copy(newYearOfRelease: Int): Novel = new Novel(name, newYearOfRelease, author)
 
-  def isWrittenBy(author: Writer): Boolean = author == this.author
-
-  def copy(newYearOfRelease: Int): Novel = new Novel(name, newYearOfRelease, author)
-
-}
-
-class Writer(firstName: String, surname: String, val dob: Int) {
-
-  def fullName: String = s"$firstName $surname"
-
-}
-
-class Counter(val value: Int = 0) {
-
-  def currentCount(): Int = value
-
-  def increment: Counter = {
-    println("Incrementing")
-    new Counter(value + 1)
   }
 
-  def increment(n: Int): Counter = {
-    if (n <= 0) this
-    else increment.increment(n - 1)
+  class Writer(firstName: String, surname: String, val dob: Int) {
+
+    def fullName: String = s"$firstName $surname"
+
   }
 
-  def decrement: Counter = {
-    println("Decrementing")
-    new Counter(value - 1)
-  }
+  class Counter(val value: Int = 0) {
 
-  def decrement(n: Int): Counter = {
-    if (n <= 0) this
-    else decrement.decrement(n - 1)
-  }
+    def currentCount(): Int = value
 
-  def print(): Unit = println(value)
+    def increment: Counter = {
+      println("Incrementing")
+      new Counter(value + 1)
+    }
+
+    def increment(n: Int): Counter = {
+      if (n <= 0) this
+      else increment.increment(n - 1)
+    }
+
+    def decrement: Counter = {
+      println("Decrementing")
+      new Counter(value - 1)
+    }
+
+    def decrement(n: Int): Counter = {
+      if (n <= 0) this
+      else decrement.decrement(n - 1)
+    }
+
+    def print(): Unit = println(value)
+
+  }
 
 }
