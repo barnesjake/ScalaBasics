@@ -5,7 +5,7 @@ package lectures.part2oop
   */
 object MethodNotations extends App {
 
-  class Person(val name: String, favouriteMovie: String) {
+  class Person(val name: String, favouriteMovie: String, val age: Int = 0) {
 
     def likes(movie: String): Boolean = movie == favouriteMovie
 
@@ -17,6 +17,16 @@ object MethodNotations extends App {
     def isAlive: Boolean = true
 
     def apply(): String = s"Hello, my name is $name and I like $favouriteMovie"
+
+    def +(nickname: String): Person = new Person(s"$name ($nickname)", favouriteMovie)
+
+    def unary_+ : Person = new Person(name, favouriteMovie, age + 1)
+
+    def learns(subject: String): String = s"$name is learning $subject"
+
+    def learnsScala(): String = learns("Scala")
+
+    def apply(n: Int): String = s"$name watched $favouriteMovie $n times."
 
   }
 
@@ -54,5 +64,14 @@ object MethodNotations extends App {
   // apply
   println(tom.apply())
   println(tom()) // equivalent
+
+  println((mary + "the rockstar") ())
+  println((mary + "the rockstar").apply())
+  println((+mary).age)
+  println(mary.unary_+.age)
+  println(tom learns "HTML")
+  println(tom.learnsScala())
+  println(mary learnsScala())
+  println(mary(3))
 
 }
