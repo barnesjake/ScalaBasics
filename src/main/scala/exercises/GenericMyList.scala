@@ -17,7 +17,7 @@ abstract class GenericMyList[+A] {
 //  def flatMap[B](transformer: MyTransformer[A, GenericMyList[B]]): GenericMyList[B]
 }
 
-object Empty extends GenericMyList[Nothing] {
+case object Empty extends GenericMyList[Nothing] {
   def head: Nothing = throw new NoSuchElementException
   def tail: GenericMyList[Nothing] = throw new NoSuchElementException
   def isEmpty: Boolean = true
@@ -29,7 +29,7 @@ object Empty extends GenericMyList[Nothing] {
 //  def flatMap[B](transformer: MyTransformer[Nothing, GenericMyList[B]]): GenericMyList[B] = Empty
 }
 
-class Cons[+A](h: A, t: GenericMyList[A]) extends GenericMyList[A] {
+case class Cons[+A](h: A, t: GenericMyList[A]) extends GenericMyList[A] {
   def head: A = h
   def tail: GenericMyList[A] = t
   def isEmpty: Boolean = false
@@ -66,6 +66,7 @@ class StringToIntTransformer extends MyTransformer[String, Int] {
 
 object ListTest extends App {
   val listOfIntegers: GenericMyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  val cloneListOfIntegers: GenericMyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
   val listOfStrings: GenericMyList[String] = new Cons("Hello", new Cons("World!", Empty))
   println(listOfIntegers).toString
   println(listOfStrings).toString
@@ -91,5 +92,7 @@ object ListTest extends App {
   println(listOfIntegers.map(new MyTransformer[Int, Int] {
     override def convert(input: Int): Int = input * 2
   }).toString)
+
+  println(cloneListOfIntegers == listOfIntegers)
 
 }
