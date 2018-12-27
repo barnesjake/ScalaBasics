@@ -44,9 +44,15 @@ object WhatsAFunction extends App {
 
   println(stringConcatenator("Hello", "World"))
 
+  val someFunction: (Int) => Function1[Int, Int] = new Function1[Int, Function1[Int, Int]] {
+    override def apply(x: Int): Function1[Int, Int] = new Function1[Int, Int] {
+      override def apply(y: Int): Int = x + y
+    }
+  }
 
-
-
+  val someAdder = someFunction(3)
+  println(someAdder(7))
+  println(someFunction(3)(4)) // curried function
 
 }
 
