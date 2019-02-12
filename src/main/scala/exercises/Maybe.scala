@@ -36,3 +36,4 @@ object MaybeTest extends App {
   println(just3.flatMap(x => Just(x % 2 == 0)))
   println(just3.filter(_ % 2 == 0))
 }
+
